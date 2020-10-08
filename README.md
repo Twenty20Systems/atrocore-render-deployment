@@ -1,1 +1,0 @@
-# skeleton-pim-no-demo
