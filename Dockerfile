@@ -42,6 +42,14 @@ RUN docker-php-ext-install -j$(nproc) \
 RUN pecl install imagick && \
     docker-php-ext-enable imagick
 
+# Configure PHP settings for AtroCore requirements
+RUN echo "max_execution_time = 300" >> /usr/local/etc/php/conf.d/atrocore.ini && \
+    echo "max_input_time = 300" >> /usr/local/etc/php/conf.d/atrocore.ini && \
+    echo "memory_limit = 512M" >> /usr/local/etc/php/conf.d/atrocore.ini && \
+    echo "post_max_size = 50M" >> /usr/local/etc/php/conf.d/atrocore.ini && \
+    echo "upload_max_filesize = 50M" >> /usr/local/etc/php/conf.d/atrocore.ini && \
+    echo "max_file_uploads = 50" >> /usr/local/etc/php/conf.d/atrocore.ini
+
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 
