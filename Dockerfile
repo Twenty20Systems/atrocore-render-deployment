@@ -7,16 +7,23 @@ RUN apt-get update && \
         libpq-dev \
         libpng-dev \
         libjpeg-dev \
+        libjpeg62-turbo-dev \
+        libfreetype6-dev \
         libzip-dev \
         libicu-dev \
         libxml2-dev \
         libsodium-dev \
+        libonig-dev \
         --no-install-recommends && \
     rm -rf /var/lib/apt/lists/*
 
-RUN docker-php-ext-install \
+# Configure and install GD extension with JPEG and FreeType support
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg && \
+    docker-php-ext-install -j$(nproc) gd
+
+# Install other PHP extensions
+RUN docker-php-ext-install -j$(nproc) \
     pdo_pgsql \
-    gd \
     intl \
     mbstring \
     zip \
