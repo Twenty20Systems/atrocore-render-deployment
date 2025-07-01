@@ -1,6 +1,12 @@
 # Environment files with sensitive data
 .env
 
+# SSH Keys
+atrocore_deploy_key
+atrocore_deploy_key.pub
+*.pem
+*.key
+
 # OS generated files
 .DS_Store
 .DS_Store?
