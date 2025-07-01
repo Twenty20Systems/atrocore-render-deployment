@@ -43,12 +43,21 @@ RUN pecl install imagick && \
     docker-php-ext-enable imagick
 
 # Configure PHP settings for AtroCore requirements
-RUN echo "max_execution_time = 300" >> /usr/local/etc/php/conf.d/atrocore.ini && \
-    echo "max_input_time = 300" >> /usr/local/etc/php/conf.d/atrocore.ini && \
-    echo "memory_limit = 512M" >> /usr/local/etc/php/conf.d/atrocore.ini && \
+RUN echo "max_execution_time = 600" >> /usr/local/etc/php/conf.d/atrocore.ini && \
+    echo "max_input_time = 600" >> /usr/local/etc/php/conf.d/atrocore.ini && \
+    echo "memory_limit = 1024M" >> /usr/local/etc/php/conf.d/atrocore.ini && \
     echo "post_max_size = 50M" >> /usr/local/etc/php/conf.d/atrocore.ini && \
     echo "upload_max_filesize = 50M" >> /usr/local/etc/php/conf.d/atrocore.ini && \
-    echo "max_file_uploads = 50" >> /usr/local/etc/php/conf.d/atrocore.ini
+    echo "max_file_uploads = 50" >> /usr/local/etc/php/conf.d/atrocore.ini && \
+    echo "log_errors = On" >> /usr/local/etc/php/conf.d/atrocore.ini && \
+    echo "error_log = /dev/stderr" >> /usr/local/etc/php/conf.d/atrocore.ini && \
+    echo "error_reporting = E_ALL" >> /usr/local/etc/php/conf.d/atrocore.ini && \
+    echo "display_errors = Off" >> /usr/local/etc/php/conf.d/atrocore.ini && \
+    echo "display_startup_errors = Off" >> /usr/local/etc/php/conf.d/atrocore.ini
+
+# Enable Apache error logging
+RUN echo "ErrorLog /dev/stderr" >> /etc/apache2/apache2.conf && \
+    echo "LogLevel info" >> /etc/apache2/apache2.conf
 
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
