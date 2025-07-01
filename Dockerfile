@@ -5,7 +5,7 @@ RUN apt-get update && \
     apt-get install -y \
         git \
         libpq-dev \
-        libmysqlclient-dev \
+        libmariadb-dev-compat \
         libpng-dev \
         libjpeg-dev \
         libjpeg62-turbo-dev \
