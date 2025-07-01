@@ -5,6 +5,7 @@ RUN apt-get update && \
     apt-get install -y \
         git \
         libpq-dev \
+        libmysqlclient-dev \
         libpng-dev \
         libjpeg-dev \
         libjpeg62-turbo-dev \
@@ -14,6 +15,7 @@ RUN apt-get update && \
         libxml2-dev \
         libsodium-dev \
         libonig-dev \
+        libmagickwand-dev \
         --no-install-recommends && \
     rm -rf /var/lib/apt/lists/*
 
@@ -24,6 +26,8 @@ RUN docker-php-ext-configure gd --with-freetype --with-jpeg && \
 # Install other PHP extensions
 RUN docker-php-ext-install -j$(nproc) \
     pdo_pgsql \
+    pdo_mysql \
+    ftp \
     intl \
     mbstring \
     zip \
@@ -33,6 +37,10 @@ RUN docker-php-ext-install -j$(nproc) \
     bcmath \
     exif \
     sodium
+
+# Install ImageMagick extension via PECL
+RUN pecl install imagick && \
+    docker-php-ext-enable imagick
 
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
