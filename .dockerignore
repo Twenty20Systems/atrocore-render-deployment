@@ -1,5 +1,22 @@
 # Environment files with sensitive data
 .env
+.env.local
+.env.production
+.env.staging
+
+# Git files
+.git
+.gitignore
+
+# Documentation
+README.md
+*.md
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
 
 # OS generated files
 .DS_Store
@@ -10,25 +27,10 @@
 ehthumbs.db
 Thumbs.db
 
-# IDE files
-.vscode/
-.idea/
-*.swp
-*.swo
-
-# Composer
-/vendor/
-composer.lock
-
-# AtroCore specific
-/data/
-/upload/
-/logs/
-/cache/
-
 # Node modules (if any)
 node_modules/
 
 # Temporary files
 *.tmp
-*.temp 
+*.temp
+*.log 
